@@ -79,22 +79,17 @@
  * @return {ListNode}
  */
 var detectCycle = function(head) {
-  if (head === null || head.next === null) return null;
-  let slow = head;
-  let fast = head.next;
-  while (slow !== fast) {
-    if (fast === null || fast.next === null) {
-      return null;
+  let hashmap = new Set();
+  let cur = head;
+  while (cur !== null) {
+    if (hashmap.has(cur)) {
+      return cur;
+    } else {
+      hashmap.add(cur);
     }
-    slow = slow.next;
-    fast = fast.next.next;
+    cur = cur.next;
   }
-  let ptr = head;
-  while (ptr !== slow.next) {
-    slow = slow.next;
-    ptr = ptr.next;
-  }
-  return ptr;
+  return null;
 };
 // @lc code=end
 
