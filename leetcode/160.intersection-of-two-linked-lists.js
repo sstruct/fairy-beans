@@ -121,17 +121,17 @@
 var getIntersectionNode = function(headA, headB) {
     let curA = headA;
     let curB = headB;
-    let hashmap = new Set();
-    while (curA !== null) {
-        hashmap.add(curA);
-        curA = curA.next;
+    while (curA !== curB) {
+        /**
+         * 问题：a, b 同时向后遍历，且速度相同，是否会导致无法相交，当头距离交点长度不同时，是否会导致不相交。
+         * 假设： a 头距离交点距离为 A, B 头距离交点距离为 B，相交后长度为 C
+         * 则 A + C + B = B + C + A
+         * 1. 假设 a, b 不相交时，最终应 return null
+         * 2. 假设 a, b 相交，最终相交在第 (A + B + C) 步
+         */
+        curA = curA === null ? headB : curA.next;
+        curB = curB === null ? headA : curB.next;
     }
-    while (curB !== null) {
-        if (hashmap.has(curB)) {
-            return curB;
-        }
-        curB = curB.next;
-    }
-    return null;
+    return curA;
 };
 // @lc code=end
