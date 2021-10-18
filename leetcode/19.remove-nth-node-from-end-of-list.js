@@ -66,23 +66,24 @@
  * @param {number} n
  * @return {ListNode}
  */
-var removeNthFromEnd = function(head, n) {
-  if (head.next === null) return null;
-  let steps = 0;
+ var removeNthFromEnd = function(head, n) {
   let slow = head;
   let fast = head;
-  while (fast !== null) {
-    if (steps > n) {
-      slow = slow.next;
-    }
-    steps = steps + 1;
+  for (let i = 0; i < n; i++) {
     fast = fast.next;
   }
-  if (steps === n) {
-    return head.next;
+  /**
+   * fast === null，说明 n === sz，对头指针需要单独处理
+   */
+  if (fast === null) return head.next;
+  /**
+   * 继续遍历，当 fast.next 时停止，此时 slow 为 需要删除节点的上一个节点。
+   */
+  while (fast.next !== null) {
+    fast = fast.next;
+    slow = slow.next;
   }
   slow.next = slow.next.next;
-
   return head;
 };
 // @lc code=end
