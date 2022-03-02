@@ -56,20 +56,5 @@
  * @return {boolean}
  */
 var isPalindrome = function(head) {
-  let values = [];
-  let cur = head;
-  while (cur !== null) {
-    values.push(cur.val);
-    cur = cur.next;
-  }
-  let i = 0, j = values.length - 1;
-  while (i < j) {
-    if (values[i] !== values[j]) {
-      return false;
-    }
-    i++;
-    j--;
-  }
-  return true;
 };
 // @lc code=end
